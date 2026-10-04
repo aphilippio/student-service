@@ -1,4 +1,4 @@
-import mongoose, {Schema,model} from "mongoose";
+import {Schema,model} from "mongoose";
 
 const studentSchema = new Schema({
     _id:{type:Number,required:true},
@@ -9,8 +9,13 @@ const studentSchema = new Schema({
         key: String,
         of:Number,
         default:{}
-    }
-})
+    },
+
+},
+    {
+    versionKey:false
+}
+)
 
 const Student = model("Student", studentSchema,'college');
 export default Student;

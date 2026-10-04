@@ -2,9 +2,9 @@ import Student  from "../model/student.js";
 
 export const createStudent = student => Student.create(student);
 
-export const findStudentById = id => Student.findById(id).select({password:0});
+export const findStudentById = id => Student.findById(id).select({password:0}).lean().exec();
 
-export const deleteStudent = id =>Student.findByIdAndDelete(id);
+export const deleteStudent = id =>Student.findByIdAndDelete(id).lean().exec();
 
 export const updateStudent = (id, data) => Student.findByIdAndUpdate(id,data, {returnDocument:'after'})
 
