@@ -1,31 +1,28 @@
-export const addStudent = async student=>{
-    //TODO: Implement addStudent, return true if student was added successfully false otherwise
+import * as repo from "../repository/studentRepository.js";
+
+export const addStudent = async student => repo.createStudent(student);
+
+export const findStudent = async id => renameId(await repo.findStudentById(+id));
+
+export const deleteStudent = async (id) => renameId(await repo.deleteStudent(+id));
+
+export const updateStudent = async (id, data) => renameId(await repo.updateStudent(+id, data));
+
+export const addScore = async (id, exam, score) => await repo.updateStudent(+id, {[`scores.${exam}`]: score});
+
+export const findStudentsByName = async (name) => (await repo.findStudentsByName(name)).map(renameId);
+
+export const countStudentsByNames = async (names) => {
+    names = Array.isArray(names) ? names : [names];
+    return await repo.countStudentsByNames(names);
 }
 
-export const findStudent = async id=>{
-    //TODO:Implement findStudent
-}
+export const findStudentsByMinScore = async (exam, minScore) => (await repo.findStudentsByMinScore(exam, +minScore)).map(renameId);
 
-export const deleteStudent = async id=>{
-    //TODO:Implement deleteStudent
-}
-
-export const updateStudent = async (id, data)=>{
-    //TODO:Implement findStudent
-}
-
-export const addScore = async(id,exam,score)=>{
-    //TODO:Implement addScore
-}
-
-export const findStudentsByName = async name=>{
-    //TODO:Implement findStudentsByName
-}
-
-export const countStudentsByNames = async names=>{
-    //TODO:Implement countStudentsByName
-}
-
-export const findStudentsByMinScore = async (exam,minScore)=>{
-    //TODO:Implement findStudentsByMinScore
+function renameId(student){
+    if (student) {
+        student.id = student._id;
+        delete student._id;
+    }
+    return student;
 }
